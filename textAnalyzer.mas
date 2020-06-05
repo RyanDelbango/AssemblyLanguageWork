@@ -1,0 +1,77 @@
+;Ryan Delbango
+
+
+
+	ldc	msg1
+	sout
+enter:	ldc	msg2
+	sout
+	ldc	'\n'
+	aout
+	ldc	inbuf
+	sin
+loop:	ldc	inbuf
+	add	index
+	ldi
+	st	curr
+	jz	more
+	sub 	lower
+	jzop 	letter
+	ld 	curr
+	sub	upper
+	jn	next
+letter:	st	save
+	ldc	count
+	add	save
+	st	save
+	ldi
+	add	one
+	push
+	ld	save
+	sti
+next:	ld	index
+	add	one
+	st	index
+	ja	loop
+more:	ld	mover
+	st	index
+	ldc	msg3
+	sout
+	ldc	aconst
+	ain
+	sub	ask
+	jzop	enter
+print:	ld	upper
+	aout
+	add	one
+	st	upper
+	ldc	count
+	add	mover
+	ldi
+	dout
+	ldc	'\n'
+	aout
+	ld	order
+	sub	one
+	jz	stop
+	st	order
+	ld	mover
+	add	one
+	st	mover
+	ja	print
+stop:	halt
+ask:	dw	121
+mover:	dw	0
+order:	dw	26
+upper:	dw	65
+lower:	dw	97
+curr:	dw	0
+save:	dw	0
+one:	dw	1
+index:	dw	0
+aconst:	dw 2	dup 0
+msg1:	dw "Program to count the frequency of letters in a series of strings."
+msg2:	dw "Input a string of up to 100 characters: "
+msg3:	dw "Any more text? y/n: "
+inbuf:	dw 100	dup 0
+count:	dw 26	dup 0

@@ -1,0 +1,34 @@
+;Ryan Delbango
+
+
+!sNew
+
+main:	ldc	msg1
+	sout			;asks user if there is data
+	ain
+	sub	yconst ;121	
+	jnz	finish
+	ldc	msg2
+	sout
+	ldc	inputX	
+	hin			;putting hex value x in inputX
+	push			;pushing x value onto stack
+	ldc	msg3
+	sout
+	ldc	inputY
+	hin			;putting hex value y in inputY
+	push			;pushing y value onto stack
+	stackOR			;using newly created stackOr function
+	pop			;pops the result of stackOr from the top of the stack
+	hout			;displays the result of stackOr
+	ldc	'\n'
+	aout
+	ja	main
+finish:	halt
+msg1:	dw "Would you like to input more data? (y/n): "
+msg2:	dw "Input a hex value for x: "
+msg3:	dw "Input a hex value for y: "
+yconst: dw 121
+inputX: dw 10 dup 0
+inputY: dw 10 dup 0
+	

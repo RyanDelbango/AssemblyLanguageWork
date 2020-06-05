@@ -1,0 +1,38 @@
+	ldc	msg1
+	sout
+	ldc	msg2
+	sout
+	ldc	inbuf
+	sin
+	sout
+loop:	ldc	inbuf
+	add	index
+	ldi
+	jz	stop
+	st curr
+	sub aconst
+	jn next
+	ld curr
+	sub zconst
+	sub one
+	jzop next
+	ld curr
+	add conv
+	st curr
+next:	ld curr
+	aout
+	ld	index
+	add	one
+	st	index
+	ja	loop
+stop:	halt
+
+curr:	dw	0
+one:	dw	1
+conv:	dw	-32
+index:	dw	0
+aconst:	dw	'a'
+zconst:	dw	'z'
+inbuf:	dw 81	dup 0
+msg1:	dw "Program to display an input with lower case letters converted to upper case"
+msg2:	dw "Input a string of up to 80 characters: "

@@ -1,0 +1,92 @@
+main:	ldc	msg1
+	sout
+	ain
+	sub	yconst ;121
+	jnz	finish
+loop:	ldc	msg2
+	sout
+	ldc 	inbuf
+	sin
+	sout
+	push
+	ldc	'\n'
+	aout
+	call	pal
+ret:	pop
+	ja	main
+finish:	halt
+
+pal:	ldc	inbuf
+	add	x
+	ldi
+	jz	prep
+	ld	x
+	add	one
+	st	x
+	ldc	inbuf
+	add	x
+	ldi
+	jz	prep
+	ld	p
+	add	one
+	st	p
+	ja	pal
+prep:	ld	x
+	sub	x
+	st	x
+comp:	ldc	inbuf
+	add	x
+	ldi
+	st	temp
+	ldc	inbuf
+	add	p
+	ldi
+	sub	temp
+	jnz	printn
+check:	ld	p
+	sub	x
+	jz	printy
+	jn	printy
+	ld	x
+	add	one
+	st	x
+	ld	p
+	sub	one
+	st	p
+	ja	comp
+printn:	ldc	msg3
+	sout
+	ldc	'\n'
+	aout
+	ld	x
+	sub	x
+	st	x
+	ld	p
+	sub	p
+	st	p
+	ret
+printy:	ldc	msg4
+	sout
+	ldc	'\n'
+	aout
+	ld	x
+	sub	x
+	st	x
+	ld	p
+	sub	p
+	st	p
+	ret
+
+	end main
+msg1:	dw "Do you want to test for a palindrome word? (y/n): "
+msg2:	dw "Enter a word up to 45 characters: "
+msg3:	dw "not palindrome"
+msg4:	dw "palindrome"
+yconst: dw	121
+one:	dw	1
+temp:	dw	0
+x:	dw	0
+p:	dw	0
+inbuf:	dw 45	dup 0
+	
+	
